@@ -45,5 +45,13 @@ namespace MachineTest.API.Controller
             return CreatedAtAction(nameof(GetCategoryById), 
                 new { categoryId = categoryId, controller = "category" }, categoryId);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId, 
+                                                        [FromBody] CategoryModel categoryModel)
+        {
+            await _categoryRepository.UpdateCategoryAsync(categoryId, categoryModel);
+            return Ok();
+        }
     }
 }

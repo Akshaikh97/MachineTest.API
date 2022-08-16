@@ -57,5 +57,15 @@ namespace MachineTest.API.Repository
 
             return category.CategoryId;
         }
+
+        public async Task UpdateCategoryAsync(int categoryId, CategoryModel categoryModel)
+        {
+            var category = await _context.Category.FindAsync(categoryId);
+            if (category !=null)
+            {
+                category.CategoryName = categoryModel.CategoryName;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
