@@ -80,5 +80,13 @@ namespace MachineTest.API.Controllers
             }
             return Ok(product);
         }
+
+        [HttpDelete]
+        [Route("DeleteProduct/{Id}")]
+        public async Task<IActionResult> DeleteProductAsync(int Id)
+        {
+            await _productRepository.DeleteProductAsync(Id);
+            return Ok();
+        }
     }
 }

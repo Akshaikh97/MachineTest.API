@@ -134,5 +134,12 @@ namespace MachineTest.API.Repository
             }
             return _productModel;
         }
+
+        public async Task DeleteProductAsync(int Id)
+        {
+            var product = new Product() { Id = Id };
+            _context.Product.Remove(product);
+            await _context.SaveChangesAsync();
+        }
     }
 }

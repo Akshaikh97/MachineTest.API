@@ -17,5 +17,6 @@ namespace MachineTest.API.Repository
         Task<ProductModel> GetProductByIdAsync(int Id);
         Task<Product> AddProductAsync(Product productModel);
         Task<Product> AddUpdateProductAsync(int Id, Product product);
+        Task DeleteProductAsync(int Id);
     }
 }
