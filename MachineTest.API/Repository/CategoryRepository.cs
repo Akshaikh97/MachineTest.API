@@ -61,11 +61,18 @@ namespace MachineTest.API.Repository
         public async Task UpdateCategoryAsync(int categoryId, CategoryModel categoryModel)
         {
             var category = await _context.Category.FindAsync(categoryId);
-            if (category !=null)
+            if (category != null)
             {
                 category.CategoryName = categoryModel.CategoryName;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task DeleteCategoryAsync(int categoryId)
+        {
+            var category = new Category() { CategoryId= categoryId};
+            _context.Category.Remove(category);
+            await _context.SaveChangesAsync();
         }
     }
 }

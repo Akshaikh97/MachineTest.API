@@ -12,5 +12,6 @@ namespace MachineTest.API.Repository
         Task<CategoryModel> GetCategoryByIdAsync(int categoryId);
         Task<int> AddCategoryAsync(CategoryModel categoryModel);
         Task UpdateCategoryAsync(int categoryId, CategoryModel categoryModel);
+        Task DeleteCategoryAsync(int categoryId);
     }
 }

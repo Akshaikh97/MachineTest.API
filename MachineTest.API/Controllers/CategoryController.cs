@@ -46,11 +46,18 @@ namespace MachineTest.API.Controller
                 new { categoryId = categoryId, controller = "category" }, categoryId);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{categoryId}")]
         public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId, 
                                                         [FromBody] CategoryModel categoryModel)
         {
             await _categoryRepository.UpdateCategoryAsync(categoryId, categoryModel);
+            return Ok();
+        }
+
+        [HttpDelete("{categoryId}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int categoryId)
+        {
+            await _categoryRepository.DeleteCategoryAsync(categoryId);
             return Ok();
         }
     }
