@@ -8,7 +8,7 @@ namespace MachineTest.API.Repository
 {
     public interface ICategoryRepository
     {
-        Task<List<CategoryModel>> GetAllCategoriesAsync();
+        Task<List<CategoryModel>> GetAllCategoriesAsync(RequestParams requestParams);
         Task<CategoryModel> GetCategoryByIdAsync(int categoryId);
         Task<int> AddCategoryAsync(CategoryModel categoryModel);
         Task UpdateCategoryAsync(int categoryId, CategoryModel categoryModel);

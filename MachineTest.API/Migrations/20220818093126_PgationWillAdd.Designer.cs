@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MachineTest.API.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220816131144_init")]
-    partial class init
+    [Migration("20220818093126_PgationWillAdd")]
+    partial class PgationWillAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,26 @@ namespace MachineTest.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MachineTest.API.Data.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Product");
+                });
 
             modelBuilder.Entity("MachineTest.API.Models.Category", b =>
                 {
@@ -33,6 +53,17 @@ namespace MachineTest.API.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("MachineTest.API.Data.Product", b =>
+                {
+                    b.HasOne("MachineTest.API.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

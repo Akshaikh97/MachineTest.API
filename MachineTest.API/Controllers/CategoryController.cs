@@ -21,9 +21,9 @@ namespace MachineTest.API.Controller
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories([FromQuery]RequestParams requestParams)
         {
-            var categories = await _categoryRepository.GetAllCategoriesAsync();
+            var categories = await _categoryRepository.GetAllCategoriesAsync(requestParams);
             return Ok(categories);
         }
 
@@ -42,12 +42,12 @@ namespace MachineTest.API.Controller
         public async Task<IActionResult> AddCategory([FromBody] CategoryModel categoryModel)
         {
             var categoryId = await _categoryRepository.AddCategoryAsync(categoryModel);
-            return CreatedAtAction(nameof(GetCategoryById), 
+            return CreatedAtAction(nameof(GetCategoryById),
                 new { categoryId = categoryId, controller = "category" }, categoryId);
         }
 
         [HttpPut("{categoryId}")]
-        public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId, 
+        public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId,
                                                         [FromBody] CategoryModel categoryModel)
         {
             await _categoryRepository.UpdateCategoryAsync(categoryId, categoryModel);

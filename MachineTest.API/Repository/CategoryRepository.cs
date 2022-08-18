@@ -16,13 +16,16 @@ namespace MachineTest.API.Repository
             _context = context;
         }
 
-        public async Task<List<CategoryModel>> GetAllCategoriesAsync()
+        public async Task<List<CategoryModel>> GetAllCategoriesAsync(RequestParams requestParams)
         {
             var records = await _context.Category.Select(x => new CategoryModel()
             {
                 CategoryId = x.CategoryId,
                 CategoryName = x.CategoryName
-            }).ToListAsync();
+            })
+                .Skip((requestParams.PageNumber - 1) * requestParams.PageSize)
+                .Take(requestParams.PageSize)
+                .ToListAsync();
             return records;
         }
 
@@ -70,7 +73,7 @@ namespace MachineTest.API.Repository
 
         public async Task DeleteCategoryAsync(int categoryId)
         {
-            var category = new Category() { CategoryId= categoryId};
+            var category = new Category() { CategoryId = categoryId };
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
         }
