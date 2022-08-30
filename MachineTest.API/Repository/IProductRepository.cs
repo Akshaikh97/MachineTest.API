@@ -11,7 +11,7 @@ namespace MachineTest.API.Repository
     {
         //Task<List<ProductModel>> GetAllProductsAsync(int page);
 
-        object GetProductCategory();
+        object GetProductCategory(RequestParams requestParams);
 
         List<ProductCategoryModel> GetProductCategoryModel();
         Task<ProductModel> GetProductByIdAsync(int Id);

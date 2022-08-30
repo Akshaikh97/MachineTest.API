@@ -30,16 +30,7 @@ namespace MachineTest.API.Repository
         }
 
         public async Task<CategoryModel> GetCategoryByIdAsync(int categoryId)
-        {
-            //"FindAsync" will work only with the primaey key.
-            //var records = await _context.Category.FindAsync(categoryId).Select(x => new CategoryModel()
-            //{
-            //    CategoryId=x.CategoryId,
-            //    CategoryName=x.CategoryName
-            //}).ToListAsync();//If I used ToListAsync(), some Category does not exist then I'll get an error. 
-            //return records;
-
-            //If I want to fetch data based on some other column use "Where"
+        {   
             var records = await _context.Category.Where(x => x.CategoryId == categoryId).Select(x => new CategoryModel()
             {
                 CategoryId = x.CategoryId,

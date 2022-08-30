@@ -63,7 +63,7 @@ namespace MachineTest.API.Repository
         //    return product;
         //}
 
-        public object GetProductCategory()
+        public object GetProductCategory(RequestParams requestParams)
         {
             var productCategory = (from a in _context.Product
                                    join b in _context.Category on a.CategoryId equals b.CategoryId
@@ -73,7 +73,10 @@ namespace MachineTest.API.Repository
                                        ProductName = a.ProductName,
                                        CategoryId = b.CategoryId,
                                        CategoryName = b.CategoryName
-                                   }).ToList();
+                                   })
+                                   .Skip((requestParams.PageNumber - 1) * requestParams.PageSize)
+                                   .Take(requestParams.PageSize)
+                                   .ToList();
             return productCategory;
         }
 
@@ -125,7 +128,7 @@ namespace MachineTest.API.Repository
             }
 
             var product = await _context.Product.FindAsync(Id);
-            if (product !=null)
+            if (product != null)
             {
                 product.ProductName = productModel.ProductName;
                 product.CategoryId = productModel.CategoryId;

@@ -31,11 +31,11 @@ namespace MachineTest.API.Controllers
 
         [HttpGet]
         [Route("GetProductCategory")]
-        public IActionResult GetProductCategory()
+        public IActionResult GetProductCategory([FromQuery]RequestParams requestParams)
         {
-            var productCategories = _productRepository.GetProductCategory();
+            var productCategories = _productRepository.GetProductCategory(requestParams);
             return Ok(productCategories);
-        }
+         }
 
         [HttpGet]
         [Route("GetProductCategoryModel")]
